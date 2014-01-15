@@ -6,17 +6,25 @@ package com.demo;
 
 import android.app.Activity
 import android.os.Bundle
-import android.graphics.Color
 import android.widget.BaseAdapter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.content.Context
+import android.graphics.Color
 
 class HomeActivity : Activity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<Activity>.onCreate(savedInstanceState)
+        val listOf = arrayListOf(Music("sdf", "sdf"))
+
+        var adapter = CommonAdapter(listOf, { item ->
+            var text = TextView(this)
+            text.setText("Go to ${item.path}")
+            text
+        })
+
 
         val layout = linearLayout(Orientation.Vertical) {
             linearLayout(Orientation.Horizontal) {
@@ -25,10 +33,13 @@ class HomeActivity : Activity(){
                 button("3").weight(1f)
             }.bgColor(Color.DKGRAY).weight(0f)
 
-            listView (MyAdapter(getContext()!!))
+
+
+            listView (adapter)
                     .itemClick { pos ->
-                        toast("item clicked $pos")
-                        setTitle("hello $pos") }
+                toast("item clicked $pos")
+                setTitle("hello $pos")
+            }
                     .weight(1f)
 
 
@@ -38,6 +49,10 @@ class HomeActivity : Activity(){
 
         setContentView(layout)
 
+
+    }
+
+    class uiFunc(var music:Music){
 
     }
     class MyAdapter(val context: Context) : BaseAdapter(){

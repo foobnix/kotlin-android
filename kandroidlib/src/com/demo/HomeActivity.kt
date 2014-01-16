@@ -11,39 +11,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.content.Context
-import android.graphics.Color
+import android.view.Gravity
 
 class HomeActivity : Activity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<Activity>.onCreate(savedInstanceState)
-        val listOf = arrayListOf(Music("sdf", "sdf"))
-
-        var adapter = CommonAdapter(listOf, { item ->
-            var text = TextView(this)
-            text.setText("Go to ${item.path}")
-            text
-        })
-
-
         val layout = linearLayout(Orientation.Vertical) {
+
             linearLayout(Orientation.Horizontal) {
-                button("1").weight(1f).margin(top = 10.dp)
-                button("2").weight(1f).padding(5.dp).bgColor(Color.RED).margin(0.dp)
-                button("3").weight(1f)
-            }.bgColor(Color.DKGRAY).weight(0f)
-
-
-
-            listView (adapter)
-                    .itemClick { pos ->
-                toast("item clicked $pos")
-                setTitle("hello $pos")
+                textView("Score:18").weight(1f); textView("Time: 99").weight(1f).gravity(Gravity.END)
             }
-                    .weight(1f)
 
+            button("Solve")
 
-            button("BIG").weight(0f).size(Size.MatchParent, Size.MatchParent, 0f)
+            linearLayout(Orientation.Horizontal) {
+                button("7"); button("8"); button("9")
+            }
+            linearLayout(Orientation.Horizontal) {
+                button("4"); button("5"); button("6")
+            }
+            linearLayout(Orientation.Horizontal) {
+                button("1"); button("2"); button("3")
+            }
+            linearLayout(Orientation.Horizontal) {
+                button("0"); button("."); button("C");
+            }
+
 
         }
 
@@ -52,7 +46,7 @@ class HomeActivity : Activity(){
 
     }
 
-    class uiFunc(var music:Music){
+    class uiFunc(var music: Music){
 
     }
     class MyAdapter(val context: Context) : BaseAdapter(){

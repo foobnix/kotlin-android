@@ -3,6 +3,7 @@
  */
 
 package com.demo
+
 import android.content.res.Resources
 
 fun dipToPx(dp: Int): Int {
@@ -11,4 +12,7 @@ fun dipToPx(dp: Int): Int {
 
 fun pxToDip(px: Int): Int {
     return px / Resources.getSystem().getDisplayMetrics().density.toInt()
+}
+fun String.empty():Boolean {
+    return this.trim().length == 0;
 }

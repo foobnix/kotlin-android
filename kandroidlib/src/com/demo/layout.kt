@@ -3,6 +3,8 @@ package com.demo
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.view.Gravity
 
 /**
  * Created by ivan on 1/15/14.
@@ -50,4 +52,14 @@ fun View.weight(weight: Float): View {
 fun View.bgColor(color: Int): View {
     setBackgroundColor(color)
     return this;
+}
+fun View.align(align:Align=Align.Start):View{
+    setTextAlignment(align.value)
+    return this
+}
+fun View.gravity(gravity:Int = Gravity.LEFT):View{
+    if(this is TextView){
+        setGravity(gravity)
+    }
+    return this
 }

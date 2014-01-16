@@ -13,6 +13,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import android.view.View
+import android.content.Context
 
 
 fun ViewGroup.button(text: String): Button {
@@ -45,12 +46,6 @@ fun Activity.linearLayout(orientation: Orientation = Orientation.Vertical, init:
     return layout;
 }
 
-fun Activity.toast(text: String) {
-    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-}
-fun View.toast(text: String) {
-    Toast.makeText(getContext()!!, text, Toast.LENGTH_SHORT).show()
-}
 
 fun ViewGroup.listView(adapter: BaseAdapter): ListView {
     val listView = ListView(this.getContext()!!)

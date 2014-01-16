@@ -9,7 +9,7 @@ import android.widget.AdapterView
 /**
  * Created by ivan on 1/15/14.
  */
-fun View.click(click: () -> Any) {
+fun View.click(click: () -> Any):Unit {
     this.setOnClickListener { click() }
 }
 

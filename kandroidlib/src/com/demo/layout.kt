@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.view.Gravity
+import android.widget.FrameLayout
 
 /**
  * Created by ivan on 1/15/14.
@@ -29,36 +30,39 @@ fun View.margin(all: Int = 0, left: Int = 0, top: Int = 0, right: Int = 0, botto
     return this;
 }
 
-fun View.size(width: Size = Size.WrapContent, height: Size = Size.WrapContent, weight: Float = -1f): View {
-    val lp = getLayoutParams() as LinearLayout.LayoutParams
-    var actualWeight = 0f;
-
-    if (weight != -1f) {
-        actualWeight = weight
-    } else if (lp != null) {
-        actualWeight = lp.weight
+fun View.layout(width: Int = WRAP_CONTENT, height: Int = WRAP_CONTENT, layoutGravity: Int = Gravity.LEFT, weight: Float = 0f): View {
+    if (this.getParent() is FrameLayout) {
+        var res = FrameLayout.LayoutParams(width, height)
+        res.gravity = layoutGravity
+        this.setLayoutParams(res)
+        return this
+    } else {
+        var res = LinearLayout.LayoutParams(width, height)
+        res.gravity = layoutGravity
+        res.weight = weight
+        this.setLayoutParams(res)
+        return this
     }
-    val layoutParams = LinearLayout.LayoutParams(lp?.width ?: width.value, lp?.height ?: height.value, actualWeight);
-    this.setLayoutParams(layoutParams)
-    return this;
 }
 
-fun View.weight(weight: Float): View {
-    val lp = getLayoutParams()
-    val layoutParams = LinearLayout.LayoutParams(lp?.width ?: Size.WrapContent.value, lp?.height ?: Size.WrapContent.value, weight)
-    this.setLayoutParams(layoutParams)
-    return this;
+fun ViewGroup.frame(init: FrameLayout.() -> Unit): View {
+    val layout = FrameLayout(getContext()!!)
+    layout.init()
+    addView(layout)
+    return layout
 }
+
+
 fun View.bgColor(color: Int): View {
     setBackgroundColor(color)
     return this;
 }
-fun View.align(align:Align=Align.Start):View{
+fun View.align(align: Align = Align.Start): View {
     setTextAlignment(align.value)
     return this
 }
-fun View.gravity(gravity:Int = Gravity.LEFT):View{
-    if(this is TextView){
+fun View.textGravity(gravity: Int = Gravity.LEFT): View {
+    if (this is TextView) {
         setGravity(gravity)
     }
     return this

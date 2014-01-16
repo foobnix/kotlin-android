@@ -14,6 +14,17 @@ var bug = array(
         View.TEXT_ALIGNMENT_TEXT_START
         )
 
+val WRAP_CONTENT:Int = ViewGroup.LayoutParams.WRAP_CONTENT
+val MATCH_PARENT:Int = ViewGroup.LayoutParams.MATCH_PARENT
+
+val WRAP:Int = ViewGroup.LayoutParams.WRAP_CONTENT
+val MATCH:Int = ViewGroup.LayoutParams.MATCH_PARENT
+
+val HORIZONTAL:Int = LinearLayout.HORIZONTAL
+val VERTICAL:Int = LinearLayout.VERTICAL
+
+val H:Int = LinearLayout.HORIZONTAL
+val V:Int = LinearLayout.VERTICAL
 
 enum class Size(val value: Int){
     WrapContent: Size(ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -41,3 +52,4 @@ val Int.dip: Int
     get(){
         return pxToDip(this)
     }
+

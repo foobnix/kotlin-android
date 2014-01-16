@@ -9,10 +9,10 @@ import android.widget.AdapterView
 /**
  * Created by ivan on 1/15/14.
  */
-fun View.click(click: () -> Any): View {
+fun View.click(click: () -> Any) {
     this.setOnClickListener { click() }
-    return this
 }
+
 fun View.longClick(longClick: () -> Boolean): View {
     this.setOnLongClickListener { longClick() }
     return this

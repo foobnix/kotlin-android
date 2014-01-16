@@ -6,73 +6,68 @@ package com.demo;
 
 import android.app.Activity
 import android.os.Bundle
-import android.widget.BaseAdapter
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import android.content.Context
+import android.widget.EditText
 import android.view.Gravity
 
 class HomeActivity : Activity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<Activity>.onCreate(savedInstanceState)
-        val layout = linearLayout(Orientation.Vertical) {
+        var input: EditText;
 
-            linearLayout(Orientation.Horizontal) {
-                textView("Score:18").weight(1f); textView("Time: 99").weight(1f).gravity(Gravity.END)
+        val layout = linearLayout(VERTICAL) {
+
+            horizontalLayout {
+                textView("Score: 18")
+                textView().layout(MATCH, WRAP, weight = 1f)
+                textView("Time: 99")
+            }.layout(MATCH, WRAP).padding(10.dp)
+
+            textView("6 + 7")
+            horizontalLayout {
+                input = editText().layout(300.dp, WRAP) as EditText
+                input.setCursorVisible(false)
+                button("<-").layout(80.dp).click {
+                    var str = input.getText().toString()
+                    if (!str.isEmpty()) {
+                        input.setText(str.substring(0, str.length - 1))
+                    }
+                }
             }
 
-            button("Solve")
+            button("Solve").layout(380.dip, WRAP)
 
-            linearLayout(Orientation.Horizontal) {
-                button("7"); button("8"); button("9")
-            }
-            linearLayout(Orientation.Horizontal) {
-                button("4"); button("5"); button("6")
-            }
-            linearLayout(Orientation.Horizontal) {
-                button("1"); button("2"); button("3")
-            }
-            linearLayout(Orientation.Horizontal) {
-                button("0"); button("."); button("C");
+            linearLayout(HORIZONTAL) {
+                button("7").click { input.append("7") };
+                button("8").click { input.append("8") };
+                button("9").click { input.append("9") };
             }
 
+            linearLayout(HORIZONTAL) {
+                button("4").click { input.append("4") };
+                button("5").click { input.append("5") };
+                button("6").click { input.append("6") };
+            }
+            linearLayout(HORIZONTAL) {
+                button("1").click { input.append("1") };
+                button("2").click { input.append("2") };
+                button("3").click { input.append("3") };
+            }
+            linearLayout(HORIZONTAL) {
+                button("0").click { input.append("0") };
+                button(".").click {
+                    val value = input.getText().toString()
+                    if (!value.contains(".") && value.length > 0) {
+                        input.append(".")
+                    }
+                };
+                button("C").click { input.setText("") }
+            }
 
         }
 
-        setContentView(layout)
-
-
-    }
-
-    class uiFunc(var music: Music){
-
-    }
-    class MyAdapter(val context: Context) : BaseAdapter(){
-        override fun getCount(): Int {
-            return 10;
-        }
-        override fun getItem(position: Int): Any? {
-            return 0;
-        }
-        override fun getItemId(position: Int): Long {
-            return 0L;
-        }
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-            val text = TextView(context)
-            text.setText("item $position");
-            return text
-
-        }
-
-    }
-
-    class Music(val path: String, val text: String) {
-        {
-            val path = path;
-            val text = text;
-        }
+        setContentView(layout);
     }
 
 }
+

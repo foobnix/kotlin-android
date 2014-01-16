@@ -11,37 +11,60 @@ import android.app.Activity
 import android.widget.ListView
 import android.widget.BaseAdapter
 import android.widget.TextView
-import android.widget.Toast
+import android.widget.EditText
 import android.view.View
-import android.content.Context
 
 
-fun ViewGroup.button(text: String): Button {
+fun ViewGroup.button(text: String, click: () -> Any = { }): Button {
     val button = Button(this.getContext()!!);
     button.setText(text)
+    button.setOnClickListener({ click() })
     addView(button)
     return button;
 }
+fun ViewGroup.editText(text: String = ""): EditText {
+    val editText = EditText(this.getContext()!!);
+    editText.setText(text)
+    addView(editText)
+    return editText;
+}
+fun EditText.hint(hint: String): EditText {
+    this.setHint(hint)
+    return this;
+}
 
-fun ViewGroup.textView(text: String): TextView {
+fun EditText.append(value: String) {
+    this.setText(this.getText().toString() + value)
+}
+
+fun ViewGroup.textView(text: String=""): TextView {
     val button = TextView(this.getContext()!!);
     button.setText(text)
     addView(button)
     return button;
 }
+fun ViewGroup.view(): View {
+    return View(this.getContext()!!);
+}
 
-
-fun ViewGroup.linearLayout(orientation: Orientation = Orientation.Vertical, init: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearLayout(orientation: Int = Orientation.Vertical.value, init: LinearLayout.() -> Unit): LinearLayout {
     val layout = LinearLayout(this.getContext()!!);
-    layout.setOrientation(orientation.value)
+    layout.setOrientation(orientation)
     layout.init()
     addView(layout)
     return layout;
 }
+fun ViewGroup.verticalLayout(init: LinearLayout.() -> Unit): LinearLayout {
+    return this.linearLayout(VERTICAL, init);
+}
+fun ViewGroup.horizontalLayout(init: LinearLayout.() -> Unit): LinearLayout {
+    return this.linearLayout(HORIZONTAL, init);
+}
 
-fun Activity.linearLayout(orientation: Orientation = Orientation.Vertical, init: LinearLayout.() -> Unit): LinearLayout {
+
+fun Activity.linearLayout(orientation: Int = Orientation.Vertical.value, init: LinearLayout.() -> Unit = { }): LinearLayout {
     val layout = LinearLayout(this);
-    layout.setOrientation(orientation.value)
+    layout.setOrientation(orientation)
     layout.init()
     return layout;
 }
